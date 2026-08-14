@@ -592,11 +592,11 @@ input:focus-visible {
 /* Gallery stagger */
 .gallery-item:nth-child(2),
 .gallery-item:nth-child(3) {
-  --stagger: 26px;
+  --stagger: 0px;
 }
 .gallery-item:nth-child(6),
 .gallery-item:nth-child(7) {
-  --stagger: -26px;
+  --stagger: -0px;
 }
 /* Hover */
 .gallery-item:hover {
