@@ -539,10 +539,12 @@ input:focus-visible {
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  column-gap: 18px;
+  row-gap: 70px;
 }
 
 .gallery-item {
+  --stagger: 0px;
   position: relative;
   aspect-ratio: 3 / 4;
   border-radius: 5px;
@@ -551,6 +553,7 @@ input:focus-visible {
   display: flex;
   align-items: flex-end;
   padding: 18px;
+  transform: translateY(var(--stagger));
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
@@ -586,22 +589,21 @@ input:focus-visible {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
-.gallery-item:hover {
-  transform: translateY(-5px);
-  border-color: var(--line-strong);
-}
-
 /* Gallery stagger */
 .gallery-item:nth-child(2),
 .gallery-item:nth-child(3) {
-  margin-top: 1px;
+  --stagger: 26px;
 }
-
 .gallery-item:nth-child(6),
 .gallery-item:nth-child(7) {
-  margin-top: -1px;
+  --stagger: -26px;
 }
-/* Swatch background variety — all derived from the palette, varied by angle/stop */
+/* Hover */
+.gallery-item:hover {
+  transform: translateY(calc(var(--stagger) - 5px));
+  border-color: var(--line-strong);
+}
+/* Swatch background variety */
 .swatch-1 {
   background: linear-gradient(155deg, #2E2718 0%, #C7A15C 60%, #12100E 100%);
 }
