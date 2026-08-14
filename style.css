@@ -591,19 +591,41 @@ input:focus-visible {
   border-color: var(--line-strong);
 }
 
-.gallery-item:nth-child(3n) {
+/* Gallery stagger */
+.gallery-item:nth-child(2),
+.gallery-item:nth-child(3) {
   margin-top: 26px;
 }
 
+.gallery-item:nth-child(6),
+.gallery-item:nth-child(7) {
+  margin-top: -26px;
+}
 /* Swatch background variety — all derived from the palette, varied by angle/stop */
-.swatch-1 { background: linear-gradient(155deg, #2E2718 0%, #C7A15C 60%, #12100E 100%); }
-.swatch-2 { background: linear-gradient(200deg, #1B1815 0%, #8C733E 55%, #E8CE93 100%); }
-.swatch-3 { background: linear-gradient(115deg, #0D0B08 0%, #5B2430 45%, #C7A15C 100%); }
-.swatch-4 { background: linear-gradient(180deg, #211D19 0%, #6E5A34 60%, #0D0B08 100%); }
-.swatch-5 { background: linear-gradient(250deg, #12100E 0%, #7C6A3F 50%, #E8CE93 100%); }
-.swatch-6 { background: linear-gradient(70deg, #1B1815 0%, #C7A15C 40%, #5B2430 100%); }
-.swatch-7 { background: linear-gradient(160deg, #221E19 0%, #8C733E 65%, #F4EEE3 100%); }
-.swatch-8 { background: linear-gradient(230deg, #0D0B08 0%, #5B2430 40%, #8C733E 100%); }
+.swatch-1 {
+  background: linear-gradient(155deg, #2E2718 0%, #C7A15C 60%, #12100E 100%);
+}
+.swatch-2 {
+  background: linear-gradient(200deg, #1B1815 0%, #8C733E 55%, #E8CE93 100%);
+}
+.swatch-3 {
+  background: linear-gradient(115deg, #0D0B08 0%, #5B2430 45%, #C7A15C 100%);
+}
+.swatch-4 {
+  background: linear-gradient(180deg, #211D19 0%, #6E5A34 60%, #0D0B08 100%);
+}
+.swatch-5 {
+  background: linear-gradient(250deg, #12100E 0%, #7C6A3F 50%, #E8CE93 100%);
+}
+.swatch-6 {
+  background: linear-gradient(70deg, #1B1815 0%, #C7A15C 40%, #5B2430 100%);
+}
+.swatch-7 {
+  background: linear-gradient(160deg, #221E19 0%, #8C733E 65%, #F4EEE3 100%);
+}
+.swatch-8 {
+  background: linear-gradient(230deg, #0D0B08 0%, #5B2430 40%, #8C733E 100%);
+}
 
 /* =========================================================
    LIGHTBOX
