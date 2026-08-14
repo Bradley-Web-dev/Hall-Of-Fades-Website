@@ -465,23 +465,12 @@ input:focus-visible {
   align-items: center;
   justify-content: center;
 }
-.about-panel-lines {
-  display: flex;
-  gap: 10px;
-  height: 62%;
-  align-items: flex-end;
+.about-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.about-panel-lines span {
-  width: 14px;
-  border-radius: 2px 2px 0 0;
-  background: linear-gradient(180deg, var(--brass-light), var(--brass-dim));
-}
-.about-panel-lines span:nth-child(1) { height: 30%; opacity: 0.5; }
-.about-panel-lines span:nth-child(2) { height: 55%; opacity: 0.65; }
-.about-panel-lines span:nth-child(3) { height: 100%; opacity: 1; }
-.about-panel-lines span:nth-child(4) { height: 80%; opacity: 0.85; }
-.about-panel-lines span:nth-child(5) { height: 45%; opacity: 0.6; }
-.about-panel-lines span:nth-child(6) { height: 22%; opacity: 0.4; }
 
 .about-copy p { max-width: 520px; }
 .about-copy .btn { margin-top: 8px; }
