@@ -558,6 +558,21 @@ input:focus-visible {
   align-items: flex-end;
   padding: 18px;
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+   
+.gallery-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.gallery-item-label {
+  position: relative;
+  z-index: 1;
+}
+   
 }
 .gallery-item:hover { transform: translateY(-5px); border-color: var(--line-strong); }
 .gallery-item:nth-child(3n+2) { margin-top: 26px; }
