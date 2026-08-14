@@ -544,7 +544,7 @@ input:focus-visible {
 }
 
 .gallery-item {
-  --stagger: 0px;
+  --stagger: 15px;
   position: relative;
   aspect-ratio: 3 / 4;
   border-radius: 5px;
