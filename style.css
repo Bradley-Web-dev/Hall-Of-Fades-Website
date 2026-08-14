@@ -594,12 +594,12 @@ input:focus-visible {
 /* Gallery stagger */
 .gallery-item:nth-child(2),
 .gallery-item:nth-child(3) {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .gallery-item:nth-child(6),
 .gallery-item:nth-child(7) {
-  margin-top: -20px;
+  margin-top: -10px;
 }
 /* Swatch background variety — all derived from the palette, varied by angle/stop */
 .swatch-1 {
