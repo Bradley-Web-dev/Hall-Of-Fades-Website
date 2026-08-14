@@ -542,12 +542,17 @@ input:focus-visible {
 /* =========================================================
    GALLERY
    ========================================================= */
-.gallery { padding: 108px 0; background: var(--bg); }
+.gallery {
+  padding: 108px 0;
+  background: var(--bg);
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
+
 .gallery-item {
   position: relative;
   aspect-ratio: 3 / 4;
@@ -569,14 +574,18 @@ input:focus-visible {
   z-index: 0;
 }
 
-.gallery-item-label {
-  position: relative;
+.gallery-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(10, 9, 7, 0.75) 0%,
+    transparent 55%
+  );
   z-index: 1;
 }
-   
-}
-.gallery-item:hover { transform: translateY(-5px); border-color: var(--line-strong); }
-.gallery-item:nth-child(3n+2) { margin-top: 26px; }
+
 .gallery-item-label {
   position: relative;
   z-index: 2;
@@ -585,14 +594,16 @@ input:focus-visible {
   font-size: 1.15rem;
   color: var(--ink);
   text-align: left;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
-.gallery-item::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(10,9,7,0.75) 0%, transparent 55%);
-  z-index: 1;
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--line-strong);
+}
+
+.gallery-item:nth-child(3n+2) {
+  margin-top: 26px;
 }
 
 /* Swatch background variety — all derived from the palette, varied by angle/stop */
