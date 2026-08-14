@@ -539,12 +539,10 @@ input:focus-visible {
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  column-gap: 18px;
-  row-gap: 70px;
+  gap: 18px;
 }
 
 .gallery-item {
-  --stagger: 15px;
   position: relative;
   aspect-ratio: 3 / 4;
   border-radius: 5px;
@@ -553,7 +551,6 @@ input:focus-visible {
   display: flex;
   align-items: flex-end;
   padding: 18px;
-  transform: translateY(var(--stagger));
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
@@ -592,17 +589,20 @@ input:focus-visible {
 /* Gallery stagger */
 .gallery-item:nth-child(2),
 .gallery-item:nth-child(3) {
-  --stagger: 0px;
+  top: 26px;
 }
+
 .gallery-item:nth-child(6),
 .gallery-item:nth-child(7) {
-  --stagger: -0px;
+  top: -26px;
 }
+
 /* Hover */
 .gallery-item:hover {
-  transform: translateY(calc(var(--stagger) - 5px));
+  transform: translateY(-5px);
   border-color: var(--line-strong);
 }
+
 /* Swatch background variety */
 .swatch-1 {
   background: linear-gradient(155deg, #2E2718 0%, #C7A15C 60%, #12100E 100%);
@@ -628,7 +628,6 @@ input:focus-visible {
 .swatch-8 {
   background: linear-gradient(230deg, #0D0B08 0%, #5B2430 40%, #8C733E 100%);
 }
-
 /* =========================================================
    LIGHTBOX
    ========================================================= */
