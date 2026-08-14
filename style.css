@@ -558,7 +558,8 @@ input:focus-visible {
   align-items: flex-end;
   padding: 18px;
   transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
-   
+}
+
 .gallery-item img {
   position: absolute;
   inset: 0;
