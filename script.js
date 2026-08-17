@@ -178,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
    6. GALLERY LIGHTBOX
    --------------------------------------------------------- */
 (function galleryLightbox() {
+
   const STYLES = [
     {
       title: "Skin Fade",
@@ -218,7 +219,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!grid || !lightbox) return;
 
-  const items = [...grid.querySelectorAll(".gallery-item")];
+  const items = Array.from(
+    grid.querySelectorAll(".gallery-item")
+  );
 
   const imageEl = document.getElementById("lightboxImage");
   const labelEl = document.getElementById("lightboxLabel");
@@ -233,36 +236,58 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastFocused = null;
 
   function render(index) {
-    currentIndex = (index + items.length) % items.length;
+
+    currentIndex =
+      (index + items.length) % items.length;
 
     const item = items[currentIndex];
-    const galleryImage = item.querySelector("img");
-    const style = STYLES[currentIndex];
+
+    const galleryImage =
+      item.querySelector("img");
+
+    const style =
+      STYLES[currentIndex];
 
     if (galleryImage) {
-      imageEl.src = galleryImage.getAttribute("src");
-      imageEl.alt = galleryImage.alt || style.title;
+
+      imageEl.src =
+        galleryImage.getAttribute("src");
+
+      imageEl.alt =
+        style.title;
     }
 
-    labelEl.textContent = style.title;
-    descEl.textContent = style.desc;
-    countEl.textContent = `${currentIndex + 1} / ${items.length}`;
+    labelEl.textContent =
+      style.title;
+
+    descEl.textContent =
+      style.desc;
+
+    countEl.textContent =
+      `${currentIndex + 1} / ${items.length}`;
   }
 
   function openLightbox(index) {
-    lastFocused = document.activeElement;
+
+    lastFocused =
+      document.activeElement;
 
     render(index);
 
     lightbox.hidden = false;
-    document.body.style.overflow = "hidden";
+
+    document.body.style.overflow =
+      "hidden";
 
     closeBtn.focus();
   }
 
   function closeLightbox() {
+
     lightbox.hidden = true;
-    document.body.style.overflow = "";
+
+    document.body.style.overflow =
+      "";
 
     if (lastFocused) {
       lastFocused.focus();
@@ -270,42 +295,68 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   items.forEach((item, index) => {
-    item.addEventListener("click", () => {
+
+    item.addEventListener("click", function(event) {
+
+      event.preventDefault();
+
       openLightbox(index);
+
     });
+
   });
 
-  closeBtn.addEventListener("click", closeLightbox);
+  closeBtn.addEventListener(
+    "click",
+    closeLightbox
+  );
 
-  prevBtn.addEventListener("click", () => {
-    render(currentIndex - 1);
-  });
-
-  nextBtn.addEventListener("click", () => {
-    render(currentIndex + 1);
-  });
-
-  lightbox.addEventListener("click", (event) => {
-    if (event.target === lightbox) {
-      closeLightbox();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (lightbox.hidden) return;
-
-    if (event.key === "Escape") {
-      closeLightbox();
-    }
-
-    if (event.key === "ArrowRight") {
-      render(currentIndex + 1);
-    }
-
-    if (event.key === "ArrowLeft") {
+  prevBtn.addEventListener(
+    "click",
+    function() {
       render(currentIndex - 1);
     }
-  });
+  );
+
+  nextBtn.addEventListener(
+    "click",
+    function() {
+      render(currentIndex + 1);
+    }
+  );
+
+  lightbox.addEventListener(
+    "click",
+    function(event) {
+
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+
+    }
+  );
+
+  document.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (lightbox.hidden) return;
+
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+
+      if (event.key === "ArrowRight") {
+        render(currentIndex + 1);
+      }
+
+      if (event.key === "ArrowLeft") {
+        render(currentIndex - 1);
+      }
+
+    }
+  );
+
 })();
 /* ---------------------------------------------------------
    7. DYNAMIC FOOTER YEAR
