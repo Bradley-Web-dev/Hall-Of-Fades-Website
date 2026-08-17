@@ -181,42 +181,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const STYLES = [
     {
       title: "Skin Fade",
-      image: "SkinFade.png",
       desc: "A tight, gradual blend down to bare skin at the sides and back."
     },
     {
       title: "Taper Fade",
-      image: "TaperFade.png",
       desc: "A softer blend that tapers close around the ears and neckline."
     },
     {
       title: "Low Fade",
-      image: "LowFade.png",
       desc: "The fade starts low, keeping more length up top for a subtle look."
     },
     {
       title: "Beard Line-Up",
-      image: "BeardLineUp.png",
       desc: "Crisp, defined edges along the cheek line, neckline, and mustache."
     },
     {
       title: "Classic Crop",
-      image: "Crop.png",
       desc: "A traditional short cut with clean lines and minimal fuss."
     },
     {
       title: "Afro Fade",
-      image: "AfroFade.png",
       desc: "A clean fade blended into textured hair for a sharp, modern finish."
     },
     {
       title: "Clean Edge Up",
-      image: "CleanEdgeUp.png",
       desc: "A sharp perimeter touch-up to keep the hairline crisp between cuts."
     },
     {
       title: "Beard Trim & Shape",
-      image: "BeardTrimAndShape.png",
       desc: "Beard length evened out and the shape cleaned up around the edges."
     }
   ];
@@ -226,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!grid || !lightbox) return;
 
-  const items = Array.from(grid.querySelectorAll(".gallery-item"));
+  const items = [...grid.querySelectorAll(".gallery-item")];
 
   const imageEl = document.getElementById("lightboxImage");
   const labelEl = document.getElementById("lightboxLabel");
@@ -240,20 +232,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
   let lastFocused = null;
 
-  const render = (index) => {
-    currentIndex = (index + STYLES.length) % STYLES.length;
+  function render(index) {
+    currentIndex = (index + items.length) % items.length;
 
+    const item = items[currentIndex];
+    const galleryImage = item.querySelector("img");
     const style = STYLES[currentIndex];
 
-    imageEl.src = style.image;
-    imageEl.alt = style.title;
+    if (galleryImage) {
+      imageEl.src = galleryImage.getAttribute("src");
+      imageEl.alt = galleryImage.alt || style.title;
+    }
 
     labelEl.textContent = style.title;
     descEl.textContent = style.desc;
-    countEl.textContent = `${currentIndex + 1} / ${STYLES.length}`;
-  };
+    countEl.textContent = `${currentIndex + 1} / ${items.length}`;
+  }
 
-  const openLightbox = (index) => {
+  function openLightbox(index) {
     lastFocused = document.activeElement;
 
     render(index);
@@ -262,20 +258,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "hidden";
 
     closeBtn.focus();
-  };
+  }
 
-  const closeLightbox = () => {
+  function closeLightbox() {
     lightbox.hidden = true;
     document.body.style.overflow = "";
 
     if (lastFocused) {
       lastFocused.focus();
     }
-  };
+  }
 
-  items.forEach((item, i) => {
+  items.forEach((item, index) => {
     item.addEventListener("click", () => {
-      openLightbox(i);
+      openLightbox(index);
     });
   });
 
@@ -289,29 +285,28 @@ document.addEventListener("DOMContentLoaded", () => {
     render(currentIndex + 1);
   });
 
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
       closeLightbox();
     }
   });
 
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", (event) => {
     if (lightbox.hidden) return;
 
-    if (e.key === "Escape") {
+    if (event.key === "Escape") {
       closeLightbox();
     }
 
-    if (e.key === "ArrowRight") {
+    if (event.key === "ArrowRight") {
       render(currentIndex + 1);
     }
 
-    if (e.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft") {
       render(currentIndex - 1);
     }
   });
 })();
-
 /* ---------------------------------------------------------
    7. DYNAMIC FOOTER YEAR
    --------------------------------------------------------- */
