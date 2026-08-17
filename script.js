@@ -179,41 +179,6 @@ document.addEventListener("DOMContentLoaded", () => {
    --------------------------------------------------------- */
 (function galleryLightbox() {
 
-  const STYLES = [
-    {
-      title: "Skin Fade",
-      desc: "A tight, gradual blend down to bare skin at the sides and back."
-    },
-    {
-      title: "Taper Fade",
-      desc: "A softer blend that tapers close around the ears and neckline."
-    },
-    {
-      title: "Low Fade",
-      desc: "The fade starts low, keeping more length up top for a subtle look."
-    },
-    {
-      title: "Beard Line-Up",
-      desc: "Crisp, defined edges along the cheek line, neckline, and mustache."
-    },
-    {
-      title: "Classic Crop",
-      desc: "A traditional short cut with clean lines and minimal fuss."
-    },
-    {
-      title: "Afro Fade",
-      desc: "A clean fade blended into textured hair for a sharp, modern finish."
-    },
-    {
-      title: "Clean Edge Up",
-      desc: "A sharp perimeter touch-up to keep the hairline crisp between cuts."
-    },
-    {
-      title: "Beard Trim & Shape",
-      desc: "Beard length evened out and the shape cleaned up around the edges."
-    }
-  ];
-
   const grid = document.getElementById("galleryGrid");
   const lightbox = document.getElementById("lightbox");
 
@@ -232,8 +197,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = document.getElementById("lightboxPrev");
   const nextBtn = document.getElementById("lightboxNext");
 
+  const descriptions = [
+    "A tight, gradual blend down to bare skin at the sides and back.",
+    "A softer blend that tapers close around the ears and neckline.",
+    "The fade starts low, keeping more length up top for a subtle look.",
+    "Crisp, defined edges along the cheek line, neckline, and mustache.",
+    "A traditional short cut with clean lines and minimal fuss.",
+    "A clean fade blended into textured hair for a sharp, modern finish.",
+    "A sharp perimeter touch-up to keep the hairline crisp between cuts.",
+    "Beard length evened out and the shape cleaned up around the edges."
+  ];
+
   let currentIndex = 0;
   let lastFocused = null;
+
 
   function render(index) {
 
@@ -242,30 +219,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const item = items[currentIndex];
 
-    const galleryImage =
+    const image =
       item.querySelector("img");
 
-    const style =
-      STYLES[currentIndex];
+    const label =
+      item.querySelector(".gallery-item-label");
 
-    if (galleryImage) {
+    if (!image) return;
 
-      imageEl.src =
-        galleryImage.getAttribute("src");
 
-      imageEl.alt =
-        style.title;
-    }
+    /* Get image from gallery */
+    imageEl.src = image.src;
 
+    /* Get title from gallery */
     labelEl.textContent =
-      style.title;
+      label ? label.textContent : "";
 
+    /* Description */
     descEl.textContent =
-      style.desc;
+      descriptions[currentIndex] || "";
 
+    /* Counter */
     countEl.textContent =
       `${currentIndex + 1} / ${items.length}`;
+
   }
+
 
   function openLightbox(index) {
 
@@ -280,7 +259,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "hidden";
 
     closeBtn.focus();
+
   }
+
 
   function closeLightbox() {
 
@@ -292,7 +273,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lastFocused) {
       lastFocused.focus();
     }
+
   }
+
+
+  /* Open when gallery image is clicked */
 
   items.forEach((item, index) => {
 
@@ -306,24 +291,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
+
+  /* Close */
+
   closeBtn.addEventListener(
     "click",
     closeLightbox
   );
 
+
+  /* Previous */
+
   prevBtn.addEventListener(
     "click",
     function() {
+
       render(currentIndex - 1);
+
     }
   );
+
+
+  /* Next */
 
   nextBtn.addEventListener(
     "click",
     function() {
+
       render(currentIndex + 1);
+
     }
   );
+
+
+  /* Click dark background to close */
 
   lightbox.addEventListener(
     "click",
@@ -336,6 +337,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 
+
+  /* Keyboard controls */
+
   document.addEventListener(
     "keydown",
     function(event) {
@@ -346,12 +350,12 @@ document.addEventListener("DOMContentLoaded", () => {
         closeLightbox();
       }
 
-      if (event.key === "ArrowRight") {
-        render(currentIndex + 1);
-      }
-
       if (event.key === "ArrowLeft") {
         render(currentIndex - 1);
+      }
+
+      if (event.key === "ArrowRight") {
+        render(currentIndex + 1);
       }
 
     }
