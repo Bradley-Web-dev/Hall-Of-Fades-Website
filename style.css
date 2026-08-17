@@ -642,35 +642,175 @@ input:focus-visible {
 /* =========================================================
    LIGHTBOX
    ========================================================= */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(6, 5, 4, 0.92);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+/* Main lightbox content */
+.lightbox-content {
+  width: min(560px, 90vw);
+  text-align: center;
+}
+
+/* Image container */
 .lightbox-swatch {
   position: relative;
+
+  width: 100%;
   aspect-ratio: 4 / 5;
+
   border-radius: 6px;
   border: 1px solid var(--line-strong);
+
   overflow: hidden;
+
   margin-bottom: 22px;
+
   box-shadow: var(--shadow);
+
+  background: var(--bg-panel);
 }
 
-.lightbox-swatch img {
+/* Actual image */
+.lightbox-image {
   position: absolute;
-  inset: 0;
+
+  top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   display: block;
+
+  z-index: 1;
 }
 
+/* Dark gradient over bottom of image */
+.lightbox-swatch::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 50%;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(10, 9, 7, 0.8)
+  );
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+/* Image title */
 .lightbox-swatch-label {
   position: absolute;
+
   left: 28px;
   bottom: 28px;
-  z-index: 2;
+
+  z-index: 3;
+
   font-family: var(--font-display);
   font-size: 1.9rem;
   font-weight: 600;
+
   color: var(--ink);
+
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+/* Description */
+.lightbox-desc {
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+/* Counter */
+.lightbox-count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+
+  color: var(--ink-faint);
+
+  letter-spacing: 0.06em;
+
+  margin: 0;
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+
+  top: 24px;
+  right: 28px;
+
+  font-size: 2rem;
+  line-height: 1;
+
+  color: var(--ink);
+
+  width: 46px;
+  height: 46px;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  z-index: 10;
+}
+
+.lightbox-close:hover {
+  border-color: var(--brass);
+  color: var(--brass-light);
+}
+
+/* Navigation buttons */
+.lightbox-nav {
+  font-size: 2.2rem;
+
+  color: var(--ink);
+
+  width: 54px;
+  height: 54px;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+}
+
+.lightbox-nav:hover {
+  border-color: var(--brass);
+  color: var(--brass-light);
 }
 /* =========================================================
    REVIEWS
