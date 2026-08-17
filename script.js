@@ -179,25 +179,60 @@ document.addEventListener("DOMContentLoaded", () => {
    --------------------------------------------------------- */
 (function galleryLightbox() {
   const STYLES = [
-    { title: "Skin Fade", swatch: "swatch-1", desc: "A tight, gradual blend down to bare skin at the sides and back." },
-    { title: "Taper Fade", swatch: "swatch-2", desc: "A softer blend that tapers close around the ears and neckline." },
-    { title: "Low Fade", swatch: "swatch-3", desc: "The fade starts low, keeping more length up top for a subtle look." },
-    { title: "Beard Line-Up", swatch: "swatch-4", desc: "Crisp, defined edges along the cheek line, neckline, and mustache." },
-    { title: "Classic Crop", swatch: "swatch-5", desc: "A traditional short cut with clean lines and minimal fuss." },
-    { title: "Textured Crop", swatch: "swatch-6", desc: "Longer on top with texture worked in for a modern, natural finish." },
-    { title: "Clean Edge Up", swatch: "swatch-7", desc: "A sharp perimeter touch-up to keep the hairline crisp between cuts." },
-    { title: "Beard Trim & Shape", swatch: "swatch-8", desc: "Beard length evened out and the shape cleaned up around the edges." },
+    {
+      title: "Skin Fade",
+      image: "SkinFade.png",
+      desc: "A tight, gradual blend down to bare skin at the sides and back."
+    },
+    {
+      title: "Taper Fade",
+      image: "TaperFade.png",
+      desc: "A softer blend that tapers close around the ears and neckline."
+    },
+    {
+      title: "Low Fade",
+      image: "LowFade.png",
+      desc: "The fade starts low, keeping more length up top for a subtle look."
+    },
+    {
+      title: "Beard Line-Up",
+      image: "BeardLineUp.png",
+      desc: "Crisp, defined edges along the cheek line, neckline, and mustache."
+    },
+    {
+      title: "Classic Crop",
+      image: "Crop.png",
+      desc: "A traditional short cut with clean lines and minimal fuss."
+    },
+    {
+      title: "Afro Fade",
+      image: "AfroFade.png",
+      desc: "A clean fade blended into textured hair for a sharp, modern finish."
+    },
+    {
+      title: "Clean Edge Up",
+      image: "CleanEdgeUp.png",
+      desc: "A sharp perimeter touch-up to keep the hairline crisp between cuts."
+    },
+    {
+      title: "Beard Trim & Shape",
+      image: "BeardTrimAndShape.png",
+      desc: "Beard length evened out and the shape cleaned up around the edges."
+    }
   ];
 
   const grid = document.getElementById("galleryGrid");
   const lightbox = document.getElementById("lightbox");
+
   if (!grid || !lightbox) return;
 
   const items = Array.from(grid.querySelectorAll(".gallery-item"));
-  const swatchEl = document.getElementById("lightboxSwatch");
+
+  const imageEl = document.getElementById("lightboxImage");
   const labelEl = document.getElementById("lightboxLabel");
   const descEl = document.getElementById("lightboxDesc");
   const countEl = document.getElementById("lightboxCount");
+
   const closeBtn = document.getElementById("lightboxClose");
   const prevBtn = document.getElementById("lightboxPrev");
   const nextBtn = document.getElementById("lightboxNext");
@@ -207,9 +242,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const render = (index) => {
     currentIndex = (index + STYLES.length) % STYLES.length;
+
     const style = STYLES[currentIndex];
 
-    swatchEl.className = "lightbox-swatch " + style.swatch;
+    imageEl.src = style.image;
+    imageEl.alt = style.title;
+
     labelEl.textContent = style.title;
     descEl.textContent = style.desc;
     countEl.textContent = `${currentIndex + 1} / ${STYLES.length}`;
@@ -217,37 +255,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const openLightbox = (index) => {
     lastFocused = document.activeElement;
+
     render(index);
+
     lightbox.hidden = false;
     document.body.style.overflow = "hidden";
+
     closeBtn.focus();
   };
 
   const closeLightbox = () => {
     lightbox.hidden = true;
     document.body.style.overflow = "";
-    if (lastFocused) lastFocused.focus();
+
+    if (lastFocused) {
+      lastFocused.focus();
+    }
   };
 
   items.forEach((item, i) => {
-    item.addEventListener("click", () => openLightbox(i));
+    item.addEventListener("click", () => {
+      openLightbox(i);
+    });
   });
 
   closeBtn.addEventListener("click", closeLightbox);
-  prevBtn.addEventListener("click", () => render(currentIndex - 1));
-  nextBtn.addEventListener("click", () => render(currentIndex + 1));
 
-  // Click outside content to close
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) closeLightbox();
+  prevBtn.addEventListener("click", () => {
+    render(currentIndex - 1);
   });
 
-  // Keyboard: Escape to close, arrows to navigate
+  nextBtn.addEventListener("click", () => {
+    render(currentIndex + 1);
+  });
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
   document.addEventListener("keydown", (e) => {
     if (lightbox.hidden) return;
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") render(currentIndex + 1);
-    if (e.key === "ArrowLeft") render(currentIndex - 1);
+
+    if (e.key === "Escape") {
+      closeLightbox();
+    }
+
+    if (e.key === "ArrowRight") {
+      render(currentIndex + 1);
+    }
+
+    if (e.key === "ArrowLeft") {
+      render(currentIndex - 1);
+    }
   });
 })();
 
